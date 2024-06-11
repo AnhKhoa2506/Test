@@ -4,46 +4,85 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace dethimau_bai1
+namespace timkiemnhiphan
 {
     internal class Program
     {
+        /*static void ReplaceValues(int[] A, int oldValue, int newValue)
+        {
+            for (int i = 0; i < A.Length; i++)
+            {
+                if (A[i] == oldValue)
+                {
+                    A[i] = newValue;
+                }
+            }
+        }*/
+        static int Bseach(int[]A, int l, int r, int x)
+        {
+            if (l <= r)
+            {
+                int mid = (l + r) / 2;
+                if (A[mid] == x) return mid;
+                else if (A[mid] > x)
+                {
+                    return Bseach(A,l , mid - 1, x);
+                }
+                else return Bseach(A, mid + 1,r, x);
+            }
+            else return -1;
+        }
+        static int timkiem(int[]A, int x)
+        {
+            for (int i = 0; i < A.Length; i++)
+            {
+                if (x == A[i]) return i;
+                
+            
+            }return -1;
+        }
+       /* static void thaythe(int[]A, int x)
+        {
+            foreach (int num in A)
+            {
+                if (num == num)
+                {
+                    Console.WriteLine("Thay the gia tri trung lap = ");
+                    int c = int.Parse(Console.ReadLine());
+                }
+            }
+        }*/
         static void Main(string[] args)
         {
-            int xi, yi;
-            int xm, ym;
-            int r;
-            double im;
-            Console.OutputEncoding = Encoding.UTF8;
-            Console.WriteLine("Đây là chương trình xác định vị trí điểm M ");
-            Console.WriteLine("Nhập tọa độ tâm I: ");
-            Console.Write("Hoành độ: ");
-            xi = int.Parse(Console.ReadLine());
-            Console.Write("Tung độ: ");
-            yi = int.Parse(Console.ReadLine());
-            Console.Write("Bán kính r = ");
-            r = int.Parse(Console.ReadLine());
-            Console.WriteLine("Tâm I ({0}, {1}) , R = {2}",xi,yi,r );
-            Console.WriteLine("Nhập tọa độ điểm M");
-            Console.Write("Hoành độ: ");
-            xm = int.Parse(Console.ReadLine());
-            Console.Write("Tung độ: ");
-            ym = int.Parse(Console.ReadLine());
-            im = Math.Sqrt(Math.Pow(xm - xi,2) + Math.Pow(ym-yi,2));
-            Console.WriteLine("Độ dài IM = {0}", im);
-            if ( im > r )
+            int[] A = null;
+            Console.Write("Nhap do dai mang: ");
+            int n = int.Parse(Console.ReadLine());
+            A = new int[n]; 
+            Random r = new Random();
+            for (int i = 0; i < n; i++)
             {
-                Console.WriteLine("Điểm M nằm ngoài đường tròn ");
+                A[i] = r.Next(30);
             }
-            else if ( im < r ) 
+           
+            Array.Sort(A);
+            Console.WriteLine("Cac gia tri co trong mang la: ");
+            for (int i = 0; i < A.Length; i++)
             {
-                Console.WriteLine("Điểm M nằm trong đường tròn ");
+                Console.Write("\t{0}", A[i]);
             }
-            else
+    
+            Console.WriteLine("\nNhap gia tri can tim: ");
+            int x = int.Parse(Console.ReadLine());
+            int vitri = Bseach(A, 0, n - 1, x);
+            if (vitri != -1)
             {
-                Console.WriteLine("Điểm M nằm trên đường tròn ");
+                Console.WriteLine("Gia tri tim duoc nam o {0}", timkiem(A,x));
             }
+            else Console.WriteLine("Gia tri ko co trong mang A");
             Console.Read();
+
+
+
         }
     }
 }
